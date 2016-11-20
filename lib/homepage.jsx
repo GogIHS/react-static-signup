@@ -22,9 +22,10 @@ class SignUp extends Component {
 
   render() {
     let styles = {
-      border: '1px solid black',
+      border: '1px solid rgba(19, 35, 47, 0.9)',
+      borderRadius: '6px',
       display: 'flex',
-      height: '400px',
+      height: '500px',
     };
     return (
       <div style={styles}>
@@ -55,20 +56,30 @@ class Form extends Component {
     const container = {
       display: 'flex',
       flexDirection: 'column',
-      height: '300px',
+      height: '500px',
       width: '90%',
       alignItems: 'center',
       justifyContent: 'center',
     }
     return(
-      <div style={{width: '50%', border: '1px solid black',}}>
+      <div className={'form'}>
         <div style={container}>
-          Name:
-          <input type={'text'} onChange={this.userChange} />
-          Password:
-          <input type={'password'} onChange={this.passChange} />
+          <h1>Welcome Back!</h1>
+          <div className={'field-wrap'}>
+            <label>Username:<span className={'req'}>*</span></label>
+            <input type={'text'} onChange={this.userChange} />
+          </div>
+
+          <div className={'field-wrap'}>
+            <label>Password:<span className={'req'}>*</span></label>
+            <input type={'password'} onChange={this.passChange} />
+          </div>
+
+          <p className={'forgot'}><a href="#">Forgot Password?</a></p>
           <br />
-          <button onClick={() => this.props.addUser({user: this.state.username, pass: this.state.password, time: Date.now()})}>Submit</button>
+
+          <button onClick={() => this.props.addUser({user: this.state.username, pass: this.state.password, time: Date.now()})}
+            className={'button button-block'}>Log In</button>
         </div>
       </div>
     );
@@ -87,20 +98,16 @@ class Status extends Component {
       flexDirection: 'column',
       width: '100%',
       height: '90%',
+      overflowY: 'scroll',
     };
-    let listStyle = {
-      listStyle: 'none',
-      border: '1px solid black',
-    }
     let container = {
       width: '50%',
-      border: '1px solid black',
       display: 'flex',
       flexDirection: 'column'
     }
     const currentUsers = this.props.data.map((thisItem, idx) => {
       return (
-        <li style={listStyle} key={idx}>
+        <li className={'listItem button button-block'} key={idx}>
           <div  onDoubleClick={() => this.setState({curUserTime: `${(Date.now() - thisItem.time)/1000} Seconds`})}>{thisItem.user}</div>
         </li>
       );
@@ -110,7 +117,7 @@ class Status extends Component {
         <div style={styles}>
           {currentUsers}
         </div>
-        <div className={'show'} >
+        <div className={'show button button-block'} >
           {this.state.curUserTime}
         </div>
       </div>
